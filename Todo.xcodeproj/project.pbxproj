@@ -60,8 +60,7 @@
 				1024FA1B29DC35F100EF75A5 /* TodoApp.swift */,
 				1024FA2E29DC361600EF75A5 /* View */,
 				1024FA1F29DC35F200EF75A5 /* Assets.xcassets */,
-				1024FA2429DC35F200EF75A5 /* Persistence.swift */,
-				1024FA2629DC35F200EF75A5 /* Todo.xcdatamodeld */,
+				1024FA3129DC43A300EF75A5 /* Data */,
 				1024FA2129DC35F200EF75A5 /* Preview Content */,
 			);
 			path = Todo;
@@ -82,6 +81,15 @@
 				1024FA2F29DC364100EF75A5 /* AddTodoView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1024FA3129DC43A300EF75A5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1024FA2429DC35F200EF75A5 /* Persistence.swift */,
+				1024FA2629DC35F200EF75A5 /* Todo.xcdatamodeld */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

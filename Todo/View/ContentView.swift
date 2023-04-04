@@ -29,7 +29,7 @@ struct ContentView: View {
                 Image(systemName: "plus")
             } //: ADD BUTTON
                 .sheet(isPresented: $showingAddTodoView) {
-                    AddTodoView()
+                    AddTodoView().environment(\.managedObjectContext, self.viewContext)
                 }
             )
             
