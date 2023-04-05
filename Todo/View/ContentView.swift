@@ -12,18 +12,31 @@ struct ContentView: View {
     //MARK: - PROPERTIES
     
     @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(entity: Todo.entity(), sortDescriptors:  [NSSortDescriptor(keyPath: \Todo.name, ascending: true)]) var todos: FetchedResults<Todo>
+    
     @State private var showingAddTodoView: Bool = false
     
     
     //MARK: - BODY
     var body: some View {
         NavigationView {
-            List(0 ..< 5) { item in
-                Text("Hello, World!")
-            }
+            List {
+                ForEach(self.todos, id: \.self) { todo in
+                    HStack {
+                        Text(todo.name ?? "Unknown")
+                        
+                        Spacer()
+                        
+                        Text(todo.priority ?? "Unknown")
+                    } //
+                } //: LOOP
+                .onDelete(perform: delete)
+            } //: LIST
             .navigationBarTitle("Todo", displayMode: .inline)
-            .navigationBarItems(trailing:
-                                    Button(action: {
+            .navigationBarItems(
+                leading: EditButton(),
+                trailing:
+                Button(action: {
                 self.showingAddTodoView.toggle()
             }) {
                 Image(systemName: "plus")
@@ -32,14 +45,25 @@ struct ContentView: View {
                     AddTodoView().environment(\.managedObjectContext, self.viewContext)
                 }
             )
+        } //: NAVIGATION
+    }
+    //MARK: - FUNCTION
+    private func delete(at offsets: IndexSet) {
+        for index in offsets {
+            let todo = todos[index]
+            viewContext.delete(todo)
             
+            do {
+                try viewContext.save()
+            } catch {
+                print(error)
+            }
         }
     }
 }
-    
-    
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-        }
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
+}
