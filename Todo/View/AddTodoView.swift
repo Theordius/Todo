@@ -49,7 +49,7 @@ struct AddTodoView: View {
                             
                             do {
                                 try self.viewContext.save()
-//                                print("New todo: \(todo.name ?? ""), Priority: \(todo.priority ?? "")")
+
                             } catch {
                                 print(error)
                             }
